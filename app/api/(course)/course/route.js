@@ -11,7 +11,7 @@ import { reloadCourse } from '@/data/actions/reload';
 const APPSCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxhq2HUS3Jhhh0XF9PPr_ldJ1redmb1JAN5hZjaeYzvb_AyJiVifEXsW-MdKqpBfEeZww/exec';
 
 export async function POST(request) {
-    try {
+    try { 
         const { user, body } = await authenticate(request);
         if (!user) {
             return NextResponse.json({ status: 0, mes: 'Xác thực không thành công.' }, { status: 401 });
