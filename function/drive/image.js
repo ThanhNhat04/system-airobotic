@@ -18,6 +18,7 @@ export async function uploadImageToDrive(file, folderId) {
             requestBody: fileMetadata,
             media: media,
             fields: 'id',
+            supportsAllDrives: true,
         });
         if (response.data && response.data.id) {
             return response.data.id;
@@ -39,7 +40,7 @@ export async function deleteImageFromDrive(fileId) {
 
     try {
         const drive = await getDriveClient();
-        await drive.files.delete({ fileId: fileId });
+        await drive.files.delete({ fileId: fileId, supportsAllDrives: true });
         console.log(`File ${fileId} đã được xóa thành công khỏi Google Drive.`);
         return true;
     } catch (error) {
