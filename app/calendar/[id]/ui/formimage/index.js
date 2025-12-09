@@ -396,6 +396,8 @@ const UploadManager = forwardRef(({
 // 3. COMPONENT CHÍNH ĐIỀU KHIỂN - ĐÃ CẬP NHẬT
 //================================================================
 export default function ImageUploader({ session, courseId, Version }) {
+    console.log(session);
+    
 
 
     const router = useRouter();

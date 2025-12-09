@@ -6,7 +6,7 @@ import { NextResponse } from 'next/server';
 import { Types, isValidObjectId } from 'mongoose';
 import { reloadCourse } from '@/data/actions/reload';
 
-const APPSCRIPT = 'https://script.google.com/macros/s/AKfycby4HNPYOKq-XIMpKMqn6qflHHJGQMSSHw6z00-5wuZe5Xtn2OrfGXEztuPj1ynKxj-stw/exec';
+const APPSCRIPT = 'https://script.google.com/macros/s/AKfycbxhq2HUS3Jhhh0XF9PPr_ldJ1redmb1JAN5hZjaeYzvb_AyJiVifEXsW-MdKqpBfEeZww/exec';
 const CREATE_LESSON_REQUIRED = ['Day', 'Topic', 'Room', 'Time', 'Teacher'];
 
 // Helper: Tìm _id của phòng từ tên phòng
@@ -34,7 +34,8 @@ const formatDay = d => {
 export async function POST(request) {
     try {
         const { courseId, detailId, data, student = [], type } = await request.json();
-
+        console.log(type);
+        
         if (!courseId || !data || typeof data !== 'object') {
             return NextResponse.json({ status: 1, mes: 'Thiếu courseId hoặc data' }, { status: 400 });
         }
@@ -63,6 +64,8 @@ export async function POST(request) {
                 const scriptRes = await fetch(`${APPSCRIPT}?ID=${encodeURIComponent(courseId)}&Topic=${encodeURIComponent(formattedDayForAppscript)}`, { cache: 'no-store' });
                 if (scriptRes.ok) {
                     const c = await scriptRes.json();
+                    console.log(c);
+                    
                     if (c?.urls) imageURL = c.urls;
                 }
             } catch (err) {
